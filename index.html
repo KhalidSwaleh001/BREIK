@@ -7,19 +7,35 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="index.css">
 </head>
 <body class="bg-white text-gray-800">
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-sm shadow-sm">
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-sm shadow-sm transition-all duration-300" id="main-nav">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-red-600">New Era</h1>
+            <h1 class="text-2xl font-bold text-red-600 hover:scale-105 transition-transform cursor-pointer">New Era</h1>
             <div class="space-x-6">
-                <a href="#home" class="hover:text-red-600 transition-colors">Home</a>
-                <a href="#features" class="hover:text-red-600 transition-colors">Features</a>
-                <a href="#home" class="hover:text-red-600 transition-colors">About Us</a>
-                <a href="#signup" class="hover:text-red-600 transition-colors">Sign Up</a>
-                <a href="#contact" class="hover:text-red-600 transition-colors">Contact</a>
+                <a href="#home" class="hover:text-red-600 transition-colors relative group">
+                    Home
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#features" class="hover:text-red-600 transition-colors relative group">
+                    Features
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#about" class="hover:text-red-600 transition-colors relative group">
+                    About Us
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#signup" class="hover:text-red-600 transition-colors relative group">
+                    Sign Up
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contact" class="hover:text-red-600 transition-colors relative group">
+                    Contact
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 transition-all duration-300 group-hover:w-full"></span>
+                </a>
             </div>
         </div>
     </nav>
@@ -29,35 +45,35 @@
         <div id="hero-canvas" class="absolute inset-0"></div>
         <div class="container mx-auto px-4 h-screen flex items-center relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="max-w-2xl">
-                    <h1 class="text-6xl font-bold mb-6 text-gray-900">Find Your Perfect Match</h1>
+                <div class="max-w-2xl" data-aos="fade-right">
+                    <h1 class="text-6xl font-bold mb-6 text-gray-900 hover:text-red-600 transition-colors cursor-default">Find Your Perfect Match</h1>
                     <p class="text-xl mb-8 text-gray-600">Join New Era and discover meaningful connections in the digital age.</p>
                     <div class="flex flex-col sm:flex-row gap-4 mb-12">
-                        <a href="#signup" class="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition-colors text-center">Get Started</a>
-                        <a href="#features" class="border-2 border-red-600 text-red-600 px-8 py-3 rounded-full hover:bg-red-600 hover:text-white transition-colors text-center">Learn More</a>
+                        <a href="#signup" class="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition-all duration-300 transform hover:scale-105 text-center shadow-lg hover:shadow-xl">Get Started</a>
+                        <a href="#features" class="border-2 border-red-600 text-red-600 px-8 py-3 rounded-full hover:bg-red-600 hover:text-white transition-all duration-300 transform hover:scale-105 text-center shadow-lg hover:shadow-xl">Learn More</a>
                     </div>
                     <div class="grid grid-cols-3 gap-4">
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-red-600 mb-1">10K+</div>
+                        <div class="text-center transform hover:scale-110 transition-transform cursor-default">
+                            <div class="text-3xl font-bold text-red-600 mb-1 counter" data-target="10000">0</div>
                             <div class="text-sm text-gray-600">Active Users</div>
                         </div>
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-red-600 mb-1">500+</div>
+                        <div class="text-center transform hover:scale-110 transition-transform cursor-default">
+                            <div class="text-3xl font-bold text-red-600 mb-1 counter" data-target="500">0</div>
                             <div class="text-sm text-gray-600">Success Stories</div>
                         </div>
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-red-600 mb-1">98%</div>
+                        <div class="text-center transform hover:scale-110 transition-transform cursor-default">
+                            <div class="text-3xl font-bold text-red-600 mb-1 counter" data-target="98">0</div>
                             <div class="text-sm text-gray-600">Match Rate</div>
                         </div>
                     </div>
                 </div>
-                <div class="relative">
-                    <div class="relative z-10">
+                <div class="relative" data-aos="fade-left">
+                    <div class="relative z-10 transform hover:scale-105 transition-transform duration-300">
                         <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
                              alt="Happy couple" 
-                             class="rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                             class="rounded-2xl shadow-2xl">
                     </div>
-                    <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg">
+                    <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
                                 <i class="fas fa-heart text-red-600 text-xl"></i>
@@ -76,20 +92,20 @@
     <!-- Features Section -->
     <section id="features" class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-16 text-gray-900">Why Choose New Era?</h2>
+            <h2 class="text-4xl font-bold text-center mb-16 text-gray-900" data-aos="fade-up">Why Choose New Era?</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-lg hover:transform hover:scale-105 transition-transform border border-gray-100">
-                    <i class="fas fa-heart text-red-600 text-4xl mb-4"></i>
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:transform hover:scale-105 transition-all duration-300 border border-gray-100 cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-heart text-red-600 text-4xl mb-4 transform hover:scale-110 transition-transform"></i>
                     <h3 class="text-xl font-bold mb-2 text-gray-900">Smart Matching</h3>
                     <p class="text-gray-600">Advanced algorithms to find your perfect match based on compatibility.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg hover:transform hover:scale-105 transition-transform border border-gray-100">
-                    <i class="fas fa-shield-alt text-red-600 text-4xl mb-4"></i>
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:transform hover:scale-105 transition-all duration-300 border border-gray-100 cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-shield-alt text-red-600 text-4xl mb-4 transform hover:scale-110 transition-transform"></i>
                     <h3 class="text-xl font-bold mb-2 text-gray-900">Secure Platform</h3>
                     <p class="text-gray-600">Your privacy and security are our top priorities.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg hover:transform hover:scale-105 transition-transform border border-gray-100">
-                    <i class="fas fa-users text-red-600 text-4xl mb-4"></i>
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:transform hover:scale-105 transition-all duration-300 border border-gray-100 cursor-pointer" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-users text-red-600 text-4xl mb-4 transform hover:scale-110 transition-transform"></i>
                     <h3 class="text-xl font-bold mb-2 text-gray-900">Diverse Community</h3>
                     <p class="text-gray-600">Connect with people from all walks of life.</p>
                 </div>
@@ -100,13 +116,13 @@
     <!-- Success Stories Section -->
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-16 text-gray-900">Success Stories</h2>
+            <h2 class="text-4xl font-bold text-center mb-16 text-gray-900" data-aos="fade-up">Success Stories</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="100">
                     <div class="flex items-center gap-4 mb-4">
                         <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
                              alt="Success story" 
-                             class="w-16 h-16 rounded-full object-cover">
+                             class="w-16 h-16 rounded-full object-cover transform hover:scale-110 transition-transform">
                         <div>
                             <h3 class="font-bold">Emma & James</h3>
                             <p class="text-sm text-gray-500">Matched 6 months ago</p>
@@ -114,11 +130,11 @@
                     </div>
                     <p class="text-gray-600">"New Era helped us find each other. The matching system is incredible!"</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="200">
                     <div class="flex items-center gap-4 mb-4">
                         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
                              alt="Success story" 
-                             class="w-16 h-16 rounded-full object-cover">
+                             class="w-16 h-16 rounded-full object-cover transform hover:scale-110 transition-transform">
                         <div>
                             <h3 class="font-bold">David & Lisa</h3>
                             <p class="text-sm text-gray-500">Matched 1 year ago</p>
@@ -126,11 +142,11 @@
                     </div>
                     <p class="text-gray-600">"The best dating platform we've ever used. Highly recommended!"</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="300">
                     <div class="flex items-center gap-4 mb-4">
                         <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
                              alt="Success story" 
-                             class="w-16 h-16 rounded-full object-cover">
+                             class="w-16 h-16 rounded-full object-cover transform hover:scale-110 transition-transform">
                         <div>
                             <h3 class="font-bold">Sophie & Tom</h3>
                             <p class="text-sm text-gray-500">Matched 3 months ago</p>
@@ -145,37 +161,100 @@
     <!-- Sign Up Section -->
     <section id="signup" class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-16 text-gray-900">Create Your Profile</h2>
-            <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
+            <h2 class="text-4xl font-bold text-center mb-16 text-gray-900" data-aos="fade-up">Create Your Profile</h2>
+            <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300" data-aos="fade-up">
                 <form id="signup-form" class="space-y-6">
-                    <div>
+                    <div class="transform hover:scale-105 transition-transform">
                         <label class="block mb-2 text-gray-700">Full Name</label>
-                        <input type="text" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600" required>
+                        <input type="text" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition-all duration-300" required>
                     </div>
-                    <div>
+                    <div class="transform hover:scale-105 transition-transform">
                         <label class="block mb-2 text-gray-700">Email</label>
-                        <input type="email" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600" required>
+                        <input type="email" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition-all duration-300" required>
                     </div>
-                    <div>
+                    <div class="transform hover:scale-105 transition-transform">
                         <label class="block mb-2 text-gray-700">Gender</label>
-                        <select class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600" required>
+                        <select class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition-all duration-300" required>
                             <option value="">Select Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="transform hover:scale-105 transition-transform">
                         <label class="block mb-2 text-gray-700">Looking for</label>
-                        <select class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600" required>
+                        <select class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition-all duration-300" required>
                             <option value="">Select Preference</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                             <option value="both">Both</option>
                         </select>
                     </div>
-                    <button type="submit" class="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition-colors">Create Profile</button>
+                    <button type="submit" class="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">Create Profile</button>
                 </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16 text-gray-900" data-aos="fade-up">Get in Touch</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="bg-white p-8 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300" data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-900">Contact Information</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 transform hover:scale-105 transition-transform cursor-pointer">
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-red-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Address</h4>
+                                <p class="text-gray-600">123 Dating Street, Love City, 12345</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 transform hover:scale-105 transition-transform cursor-pointer">
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-phone text-red-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Phone</h4>
+                                <p class="text-gray-600">+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 transform hover:scale-105 transition-transform cursor-pointer">
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-envelope text-red-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Email</h4>
+                                <p class="text-gray-600">support@newera.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300" data-aos="fade-left">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-900">Send us a Message</h3>
+                    <form class="space-y-6">
+                        <div class="transform hover:scale-105 transition-transform">
+                            <label class="block mb-2 text-gray-700">Name</label>
+                            <input type="text" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition-all duration-300" required>
+                        </div>
+                        <div class="transform hover:scale-105 transition-transform">
+                            <label class="block mb-2 text-gray-700">Email</label>
+                            <input type="email" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition-all duration-300" required>
+                        </div>
+                        <div class="transform hover:scale-105 transition-transform">
+                            <label class="block mb-2 text-gray-700">Subject</label>
+                            <input type="text" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition-all duration-300" required>
+                        </div>
+                        <div class="transform hover:scale-105 transition-transform">
+                            <label class="block mb-2 text-gray-700">Message</label>
+                            <textarea rows="4" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition-all duration-300" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">Send Message</button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -185,17 +264,17 @@
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-8 md:mb-0">
-                    <h3 class="text-2xl font-bold text-red-600">New Era</h3>
+                    <h3 class="text-2xl font-bold text-red-600 hover:scale-105 transition-transform cursor-pointer">New Era</h3>
                     <p class="mt-2 text-gray-600">Find your perfect match today</p>
                 </div>
                 <div class="flex space-x-6">
-                    <a href="#" class="text-gray-600 hover:text-red-600 transition-colors">
+                    <a href="#" class="text-gray-600 hover:text-red-600 transition-all duration-300 transform hover:scale-110">
                         <i class="fab fa-facebook text-2xl"></i>
                     </a>
-                    <a href="#" class="text-gray-600 hover:text-red-600 transition-colors">
+                    <a href="#" class="text-gray-600 hover:text-red-600 transition-all duration-300 transform hover:scale-110">
                         <i class="fab fa-twitter text-2xl"></i>
                     </a>
-                    <a href="#" class="text-gray-600 hover:text-red-600 transition-colors">
+                    <a href="#" class="text-gray-600 hover:text-red-600 transition-all duration-300 transform hover:scale-110">
                         <i class="fab fa-instagram text-2xl"></i>
                     </a>
                 </div>
@@ -206,6 +285,7 @@
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="index.js"></script>
 </body>
 </html>
