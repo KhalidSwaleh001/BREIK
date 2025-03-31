@@ -289,9 +289,107 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
-            navbar.classList.add('bg-white/90', 'shadow-md');
+            navbar.classList.add('bg-white/40', 'shadow-xl');
+            navbar.classList.remove('bg-white/30', 'shadow-lg');
         } else {
-            navbar.classList.remove('bg-white/90', 'shadow-md');
+            navbar.classList.remove('bg-white/40', 'shadow-xl');
+            navbar.classList.add('bg-white/30', 'shadow-lg');
         }
     });
+
+    // FAQ Interaction
+    document.querySelectorAll('.faq-item').forEach(item => {
+        const question = item.querySelector('.cursor-pointer');
+        const answer = item.querySelector('.mt-4');
+        
+        question.addEventListener('click', () => {
+            const isOpen = answer.style.maxHeight;
+            
+            // Close all other answers
+            document.querySelectorAll('.mt-4').forEach(otherAnswer => {
+                if (otherAnswer !== answer) {
+                    otherAnswer.style.maxHeight = null;
+                }
+            });
+            
+            // Toggle current answer
+            answer.style.maxHeight = isOpen ? null : answer.scrollHeight + 'px';
+        });
+    });
+
+    // Newsletter Subscription
+    const newsletterForm = document.querySelector('.mt-16 form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = newsletterForm.querySelector('input[type="email"]').value;
+            
+            // Show success message
+            const successMessage = document.createElement('div');
+            successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full opacity-0 transition-all duration-500';
+            successMessage.textContent = 'Thank you for subscribing to our newsletter!';
+            document.body.appendChild(successMessage);
+            
+            // Trigger animation
+            setTimeout(() => {
+                successMessage.classList.remove('translate-x-full', 'opacity-0');
+            }, 100);
+            
+            // Remove message after 3 seconds
+            setTimeout(() => {
+                successMessage.classList.add('translate-x-full', 'opacity-0');
+                setTimeout(() => successMessage.remove(), 500);
+            }, 3000);
+            
+            newsletterForm.reset();
+        });
+    }
+
+    // Article Link Hover Effect
+    document.querySelectorAll('.text-gray-600.hover\\:text-red-600').forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            link.classList.add('transform', 'translate-x-1');
+        });
+        link.addEventListener('mouseleave', () => {
+            link.classList.remove('transform', 'translate-x-1');
+        });
+    });
+
+    // Article Modal Functionality
+    const modal = document.getElementById('articleModal');
+    const readMoreBtn = document.getElementById('readMoreBtn');
+    const closeModalBtn = document.getElementById('closeModal');
+
+    if (modal && readMoreBtn && closeModalBtn) {
+        readMoreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            document.body.style.overflow = ''; // Restore scrolling
+        });
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        });
+    }
 });
