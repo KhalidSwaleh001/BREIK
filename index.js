@@ -393,3 +393,54 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// Dark Mode Toggle
+const darkModeToggle = document.getElementById('darkModeToggle');
+const html = document.documentElement;
+
+// Check for saved dark mode preference
+if (localStorage.getItem('darkMode') === 'true') {
+    html.classList.add('dark');
+    darkModeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+}
+
+darkModeToggle.addEventListener('click', () => {
+    html.classList.toggle('dark');
+    const isDark = html.classList.contains('dark');
+    localStorage.setItem('darkMode', isDark);
+    
+    // Toggle icon
+    const icon = darkModeToggle.querySelector('i');
+    if (isDark) {
+        icon.classList.replace('fa-moon', 'fa-sun');
+        icon.classList.add('text-yellow-300');
+        icon.classList.remove('text-gray-800');
+    } else {
+        icon.classList.replace('fa-sun', 'fa-moon');
+        icon.classList.remove('text-yellow-300');
+        icon.classList.add('text-gray-800');
+    }
+
+    // Force a reflow to ensure styles are applied
+    void html.offsetWidth;
+});
+
+// Back to Top Button
+const backToTopButton = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+        backToTopButton.classList.remove('opacity-0', 'invisible', 'translate-y-4');
+        backToTopButton.classList.add('opacity-100', 'visible', 'translate-y-0');
+    } else {
+        backToTopButton.classList.add('opacity-0', 'invisible', 'translate-y-4');
+        backToTopButton.classList.remove('opacity-100', 'visible', 'translate-y-0');
+    }
+});
+
+backToTopButton.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});

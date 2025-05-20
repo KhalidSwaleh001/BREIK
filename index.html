@@ -5,17 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Era - Find Your Perfect Match</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            bg: '#1a1a1a',
+                            text: '#ffffff',
+                            card: '#2d2d2d',
+                            border: '#404040'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="index.css">
+    <style>
+        /* Dark mode styles */
+        .dark body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .dark .bg-white {
+            background-color: #2d2d2d !important;
+        }
+        .dark .text-gray-800 {
+            color: #ffffff !important;
+        }
+        .dark .text-gray-600 {
+            color: #a0a0a0 !important;
+        }
+        .dark .border-gray-100 {
+            border-color: #404040 !important;
+        }
+        .dark .bg-gray-50 {
+            background-color: #2d2d2d !important;
+        }
+        .dark .bg-white\/50 {
+            background-color: rgba(45, 45, 45, 0.5) !important;
+        }
+        .dark .bg-white\/30 {
+            background-color: rgba(45, 45, 45, 0.3) !important;
+        }
+        .dark .bg-white\/40 {
+            background-color: rgba(45, 45, 45, 0.4) !important;
+        }
+        .dark .bg-gradient-to-b {
+            background-image: linear-gradient(to bottom, #1a1a1a, #2d2d2d) !important;
+        }
+        .dark .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
+        }
+        .dark .shadow-xl {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3) !important;
+        }
+        .dark .hover\:bg-gray-100:hover {
+            background-color: #404040 !important;
+        }
+        .dark .bg-red-100 {
+            background-color: rgba(239, 68, 68, 0.2) !important;
+        }
+        .dark .bg-black\/50 {
+            background-color: rgba(0, 0, 0, 0.7) !important;
+        }
+    </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-white text-gray-800 transition-colors duration-300">
     <!-- Navigation -->
     <nav class="fixed w-full z-50 bg-white/30 backdrop-blur-md shadow-lg border-b border-white/20 transition-all duration-300" id="main-nav">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <h1 class="text-2xl font-bold text-red-600 hover:scale-105 transition-transform cursor-pointer drop-shadow-lg">New Era</h1>
-            <div class="space-x-6">
+            <div class="flex items-center space-x-6">
                 <a href="#home" class="text-gray-800 hover:text-red-600 transition-colors relative group font-medium">
                     Home
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 transition-all duration-300 group-hover:w-full"></span>
@@ -36,9 +102,18 @@
                     Contact
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 transition-all duration-300 group-hover:w-full"></span>
                 </a>
+                <!-- Dark Mode Toggle -->
+                <button id="darkModeToggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas fa-moon text-gray-800 dark:text-yellow-300"></i>
+                </button>
             </div>
         </div>
     </nav>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-red-600 text-white p-3 rounded-full shadow-lg hover:bg-red-700 transition-all duration-300 opacity-0 invisible transform translate-y-4">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <!-- Hero Section -->
     <section id="home" class="min-h-screen relative overflow-hidden bg-gradient-to-b from-white to-gray-50">
