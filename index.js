@@ -5,6 +5,12 @@ let mouseZ = 0;
 let isMouseDown = false;
 let scrollY = 0;
 
+// 3D Heart Animation
+let heart;
+let targetX = 0, targetY = 0;
+const windowHalfX = window.innerWidth / 2;
+const windowHalfY = window.innerHeight / 2;
+
 function createHeartShape() {
     const shape = new THREE.Shape();
     const x = 0, y = 0;
@@ -444,3 +450,108 @@ backToTopButton.addEventListener('click', () => {
         behavior: 'smooth'
     });
 });
+
+function initHeart() {
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
+    camera.position.z = 5;
+
+    renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 0);
+    document.getElementById('hero-canvas').appendChild(renderer.domElement);
+
+    // Create heart shape
+    const heartShape = new THREE.Shape();
+    const x = 0, y = 0;
+    heartShape.moveTo(x + 0.5, y + 0.5);
+    heartShape.bezierCurveTo(x + 0.5, y + 0.5, x + 0.4, y, x, y);
+    heartShape.bezierCurveTo(x - 0.6, y, x - 0.6, y + 0.7, x - 0.6, y + 0.7);
+    heartShape.bezierCurveTo(x - 0.6, y + 1.1, x - 0.3, y + 1.54, x + 0.5, y + 1.9);
+    heartShape.bezierCurveTo(x + 1.2, y + 1.54, x + 1.6, y + 1.1, x + 1.6, y + 0.7);
+    heartShape.bezierCurveTo(x + 1.6, y + 0.7, x + 1.6, y, x + 1.0, y);
+    heartShape.bezierCurveTo(x + 0.7, y, x + 0.5, y + 0.5, x + 0.5, y + 0.5);
+
+    const geometry = new THREE.ExtrudeGeometry(heartShape, {
+        depth: 0.5,
+        bevelEnabled: true,
+        bevelSegments: 2,
+        steps: 2,
+        bevelSize: 0.1,
+        bevelThickness: 0.1
+    });
+
+    const material = new THREE.MeshPhongMaterial({
+        color: 0xff3366,
+        specular: 0xffffff,
+        shininess: 100,
+        transparent: true,
+        opacity: 0.8
+    });
+
+    heart = new THREE.Mesh(geometry, material);
+    heart.scale.set(0.5, 0.5, 0.5);
+    scene.add(heart);
+
+    // Add lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0xffffff, 1);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+
+    // Add particles
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 1000;
+    const posArray = new Float32Array(particlesCount * 3);
+
+    for(let i = 0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 5;
+    }
+
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.005,
+        color: 0xff3366,
+        transparent: true,
+        opacity: 0.8
+    });
+
+    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particlesMesh);
+
+    document.addEventListener('mousemove', onDocumentMouseMove);
+    window.addEventListener('resize', onWindowResize);
+}
+
+function onDocumentMouseMove(event) {
+    mouseX = (event.clientX - windowHalfX) / 100;
+    mouseY = (event.clientY - windowHalfY) / 100;
+}
+
+function onWindowResize() {
+    windowHalfX = window.innerWidth / 2;
+    windowHalfY = window.innerHeight / 2;
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+function animateHeart() {
+    requestAnimationFrame(animateHeart);
+    
+    targetX = mouseX * 0.001;
+    targetY = mouseY * 0.001;
+
+    heart.rotation.y += 0.01;
+    heart.rotation.x += 0.01;
+    heart.position.x += (targetX - heart.position.x) * 0.05;
+    heart.position.y += (targetY - heart.position.y) * 0.05;
+
+    renderer.render(scene, camera);
+}
+
+// Initialize heart animation
+initHeart();
+animateHeart();
