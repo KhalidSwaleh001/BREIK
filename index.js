@@ -207,9 +207,121 @@ function animateCounter(element) {
 
 // Form handling
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Three.js
-    initThreeJS();
-    animate();
+    // Floating Hearts Animation
+    const floatingHearts = document.getElementById('floatingHearts');
+    
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        
+        // Add random variations
+        const variations = ['small', 'large', 'red', 'pink', 'rose', 'purple', 'orange', 'gold', 'rainbow'];
+        const randomVariation = variations[Math.floor(Math.random() * variations.length)];
+        heart.classList.add(randomVariation);
+        
+        // Random position and timing
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 10 + 8) + 's';
+        heart.style.animationDelay = (Math.random() * 2) + 's';
+        heart.style.opacity = Math.random() * 0.5 + 0.3;
+        
+        // Random rotation and scale
+        const scale = Math.random() * 0.5 + 0.5;
+        const rotation = Math.random() * 360;
+        heart.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
+        
+        // Add interactive features
+        heart.addEventListener('mouseover', () => {
+            heart.style.transform = `scale(1.5) rotate(${rotation}deg)`;
+            heart.style.filter = 'brightness(1.2)';
+        });
+        
+        heart.addEventListener('mouseout', () => {
+            heart.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
+            heart.style.filter = '';
+        });
+        
+        heart.addEventListener('click', () => {
+            heart.classList.add('clicked');
+            // Create mini hearts explosion
+            for(let i = 0; i < 5; i++) {
+                createMiniHeart(heart);
+            }
+            // Remove the clicked heart after animation
+            setTimeout(() => heart.remove(), 500);
+        });
+        
+        floatingHearts.appendChild(heart);
+        
+        // Remove heart after animation completes
+        heart.addEventListener('animationend', () => {
+            heart.remove();
+        });
+    }
+    
+    function createMiniHeart(parentHeart) {
+        const miniHeart = document.createElement('div');
+        miniHeart.className = 'heart small';
+        
+        // Get parent heart's position
+        const rect = parentHeart.getBoundingClientRect();
+        miniHeart.style.left = rect.left + 'px';
+        miniHeart.style.top = rect.top + 'px';
+        
+        // Random direction
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 50 + Math.random() * 50;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance;
+        
+        // Add explosion animation
+        miniHeart.style.animation = `explode 0.5s ease-out forwards`;
+        miniHeart.style.transform = `translate(${x}px, ${y}px)`;
+        
+        // Random color
+        const colors = ['red', 'pink', 'rose', 'purple', 'orange', 'gold'];
+        miniHeart.classList.add(colors[Math.floor(Math.random() * colors.length)]);
+        
+        floatingHearts.appendChild(miniHeart);
+        
+        // Remove mini heart after animation
+        setTimeout(() => miniHeart.remove(), 500);
+    }
+    
+    // Create hearts periodically
+    setInterval(createHeart, 200);
+    
+    // Create initial batch of hearts
+    for(let i = 0; i < 15; i++) {
+        setTimeout(createHeart, i * 200);
+    }
+
+    // Add mouse trail effect
+    let lastHeartTime = 0;
+    document.addEventListener('mousemove', (e) => {
+        const now = Date.now();
+        if (now - lastHeartTime > 50) { // Reduced from 100ms to 50ms for more frequent hearts
+            const heart = document.createElement('div');
+            heart.className = 'heart small';
+            heart.style.left = e.clientX + 'px';
+            heart.style.top = e.clientY + 'px';
+            heart.style.animation = 'float-up 1.5s ease-out forwards'; // Reduced from 2s to 1.5s for faster animation
+            heart.style.opacity = '0.4'; // Reduced opacity for a more subtle trail
+            
+            // Add random variations for more dynamic trail
+            const scale = 0.3 + Math.random() * 0.4; // Smaller scale range for trail hearts
+            const rotation = Math.random() * 360;
+            heart.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
+            
+            // Random color for trail hearts
+            const colors = ['red', 'pink', 'rose', 'purple', 'orange', 'gold'];
+            heart.classList.add(colors[Math.floor(Math.random() * colors.length)]);
+            
+            floatingHearts.appendChild(heart);
+            setTimeout(() => heart.remove(), 1500); // Match the animation duration
+            lastHeartTime = now;
+        }
+    });
 
     // Initialize AOS
     AOS.init({
@@ -217,9 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
         once: true,
         offset: 100
     });
-
-    // Add window resize listener
-    window.addEventListener('resize', onWindowResize);
 
     // Animate counters when they come into view
     const observer = new IntersectionObserver((entries) => {
@@ -301,6 +410,84 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.classList.remove('bg-white/40', 'shadow-xl');
             navbar.classList.add('bg-white/30', 'shadow-lg');
         }
+    });
+
+    // Add active state to navigation links
+    const navLinks = document.querySelectorAll('#main-nav a[href^="#"]');
+    const sections = document.querySelectorAll('section[id]');
+
+    function setActiveLink() {
+        const scrollPosition = window.scrollY + 100;
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                navLinks.forEach(link => {
+                    link.classList.remove('text-red-600');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('text-red-600');
+                        // Add active state animation
+                        const icon = link.querySelector('i');
+                        const text = link.querySelector('span');
+                        icon.style.transform = 'scale(1.1)';
+                        text.style.transform = 'translateX(3px)';
+                    }
+                });
+            }
+        });
+    }
+
+    window.addEventListener('scroll', setActiveLink);
+    window.addEventListener('load', setActiveLink);
+
+    // Add hover effect to navigation links
+    navLinks.forEach(link => {
+        // Add ripple effect on click
+        link.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            this.appendChild(ripple);
+            
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = `${size}px`;
+            
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            
+            ripple.classList.add('active');
+            setTimeout(() => ripple.remove(), 600);
+        });
+
+        // Add hover animation
+        link.addEventListener('mouseenter', () => {
+            const icon = link.querySelector('i');
+            const text = link.querySelector('span');
+            
+            // Add subtle bounce effect
+            icon.style.transform = 'scale(1.2)';
+            text.style.transform = 'translateX(5px)';
+            
+            // Add glow effect
+            link.style.textShadow = '0 0 8px rgba(239, 68, 68, 0.3)';
+        });
+
+        link.addEventListener('mouseleave', () => {
+            const icon = link.querySelector('i');
+            const text = link.querySelector('span');
+            
+            // Reset transforms
+            icon.style.transform = '';
+            text.style.transform = '';
+            
+            // Remove glow effect
+            link.style.textShadow = '';
+        });
     });
 
     // FAQ Interaction
@@ -398,6 +585,43 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Menu Toggle Functionality
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('main-nav');
+    const closeNav = document.getElementById('closeNav');
+    const mainContent = document.querySelector('.ml-64');
+
+    function toggleNav() {
+        mainNav.classList.toggle('-translate-x-full');
+        if (mainContent) {
+            mainContent.classList.toggle('ml-64');
+        }
+        // Toggle menu icon
+        const menuIcon = menuToggle.querySelector('i');
+        if (mainNav.classList.contains('-translate-x-full')) {
+            menuIcon.classList.replace('fa-times', 'fa-bars');
+        } else {
+            menuIcon.classList.replace('fa-bars', 'fa-times');
+        }
+    }
+
+    menuToggle.addEventListener('click', toggleNav);
+    closeNav.addEventListener('click', toggleNav);
+
+    // Close navigation when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!mainNav.contains(e.target) && !menuToggle.contains(e.target) && !mainNav.classList.contains('-translate-x-full')) {
+            toggleNav();
+        }
+    });
+
+    // Close navigation when pressing Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !mainNav.classList.contains('-translate-x-full')) {
+            toggleNav();
+        }
+    });
 });
 
 // Dark Mode Toggle
